@@ -1,0 +1,29 @@
+{
+  "author" : "Nefaur Khandker",
+  "commands" : [
+    {
+      "script" : "script.cocoascript",
+      "handler" : "selectParentArtboards",
+      "shortcut" : "cmd ctrl a",
+      "name" : "Select Parent Artboards",
+      "identifier" : "selectParentArtboards"
+    },
+    {
+      "script" : "script.cocoascript",
+      "handler" : "selectLayersConvertibleToOutlines",
+      "name" : "Select Layers Convertible to Outlines",
+      "identifier" : "selectLayersConvertibleToOutlines"
+    },
+  ],
+  "menu": {
+    "items": [
+      "selectParentArtboards",
+      "selectLayersConvertibleToOutlines"
+    ]
+  },
+  "identifier" : "org.khanacademy.sketchTools",
+  "version" : "1.0",
+  "description" : "A selection of tools we use at Khan Academy",
+  "authorEmail" : "nefaurk@khanacademy.org",
+  "name" : "Khan Academy"
+}
