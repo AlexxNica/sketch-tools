@@ -41,6 +41,11 @@ var selectLayersConvertibleToOutlines = function(context) {
   var doc = context.document;
   var page = doc.currentPage();
 
+  if (selection.count() == 0) {
+    // If we started with an empty selection, search through all the layers on this page
+    selection = page.layers().array();
+  }
+
   var layersToSelect = [];
   var selectionLoop = selection.objectEnumerator();
   var object;
