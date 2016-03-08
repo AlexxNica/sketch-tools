@@ -1,29 +1,507 @@
 {
-  "author" : "Nefaur Khandker",
+  "name" : "Khan Academy",
+  "description" : "A collection of tools we use at Khan Academy",
+  "identifier" : "org.khanacademy.sketch-tools",
+  "version" : "1.0",
+  "author" : "Nefaur Khandker, Kejia Shao",
+  "authorEmail" : "nefaurk@khanacademy.org",
   "commands" : [
     {
-      "script" : "script.cocoascript",
+      "script" : "select.cocoascript",
       "handler" : "selectParentArtboards",
       "shortcut" : "cmd ctrl a",
       "name" : "Select Parent Artboards",
       "identifier" : "selectParentArtboards"
     },
     {
-      "script" : "script.cocoascript",
+      "script" : "select.cocoascript",
       "handler" : "selectLayersConvertibleToOutlines",
       "name" : "Select Layers Convertible to Outlines",
       "identifier" : "selectLayersConvertibleToOutlines"
     },
+
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateTitles_KThrough8th",
+      "name" : "K–8th",
+      "identifier" : "generateTitles_KThrough8th"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateTitles_EarlyMath",
+      "name" : "Early math",
+      "identifier" : "generateTitles_EarlyMath"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateTitles_Arithmetic",
+      "name" : "Arithmetic",
+      "identifier" : "generateTitles_Arithmetic"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateTitles_Algebra",
+      "name" : "Algebra",
+      "identifier" : "generateTitles_Algebra"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateTitles_Geometry",
+      "name" : "Geometry",
+      "identifier" : "generateTitles_Geometry"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateTitles_Trigonometry",
+      "name" : "Trigonometry",
+      "identifier" : "generateTitles_Trigonometry"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateTitles_ProbabilityAndStatistics",
+      "name" : "Probability and statistics",
+      "identifier" : "generateTitles_ProbabilityAndStatistics"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateTitles_Calculus",
+      "name" : "Calculus",
+      "identifier" : "generateTitles_Calculus"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateTitles_DifferentialEquations",
+      "name" : "Differential equations",
+      "identifier" : "generateTitles_DifferentialEquations"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateTitles_LinearAlgebra",
+      "name" : "Linear algebra",
+      "identifier" : "generateTitles_LinearAlgebra"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateTitles_MathForFunAndGlory",
+      "name" : "Math for fun and glory",
+      "identifier" : "generateTitles_MathForFunAndGlory"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateTitles_Physics",
+      "name" : "Physics",
+      "identifier" : "generateTitles_Physics"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateTitles_Chemistry",
+      "name" : "Chemistry",
+      "identifier" : "generateTitles_Chemistry"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateTitles_Biology",
+      "name" : "Biology",
+      "identifier" : "generateTitles_Biology"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateTitles_HealthAndMedicine",
+      "name" : "Health and medicine",
+      "identifier" : "generateTitles_HealthAndMedicine"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateTitles_ElectricalEngineering",
+      "name" : "Electrical engineering",
+      "identifier" : "generateTitles_ElectricalEngineering"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateTitles_Microeconomics",
+      "name" : "Microeconomics",
+      "identifier" : "generateTitles_Microeconomics"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateTitles_Macroeconomics",
+      "name" : "Macroeconomics",
+      "identifier" : "generateTitles_Macroeconomics"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateTitles_FinanceAndCapitalMarkets",
+      "name" : "Finance and capital markets",
+      "identifier" : "generateTitles_FinanceAndCapitalMarkets"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateTitles_Entrepreneurship",
+      "name" : "Entrepreneurship",
+      "identifier" : "generateTitles_Entrepreneurship"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateTitles_ComputerProgramming",
+      "name" : "Computer programming",
+      "identifier" : "generateTitles_ComputerProgramming"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateTitles_ComputerScience",
+      "name" : "Computer science",
+      "identifier" : "generateTitles_ComputerScience"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateTitles_ArtHistory",
+      "name" : "Art history",
+      "identifier" : "generateTitles_ArtHistory"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateTitles_Grammar",
+      "name" : "Grammar",
+      "identifier" : "generateTitles_Grammar"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateTitles_Music",
+      "name" : "Music",
+      "identifier" : "generateTitles_Music"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateTitles_History",
+      "name" : "History",
+      "identifier" : "generateTitles_History"
+    },
+
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateThumbnails_KThrough8th",
+      "name" : "K–8th",
+      "identifier" : "generateThumbnails_KThrough8th"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateThumbnails_EarlyMath",
+      "name" : "Early math",
+      "identifier" : "generateThumbnails_EarlyMath"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateThumbnails_Arithmetic",
+      "name" : "Arithmetic",
+      "identifier" : "generateThumbnails_Arithmetic"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateThumbnails_Algebra",
+      "name" : "Algebra",
+      "identifier" : "generateThumbnails_Algebra"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateThumbnails_Geometry",
+      "name" : "Geometry",
+      "identifier" : "generateThumbnails_Geometry"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateThumbnails_Trigonometry",
+      "name" : "Trigonometry",
+      "identifier" : "generateThumbnails_Trigonometry"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateThumbnails_ProbabilityAndStatistics",
+      "name" : "Probability and statistics",
+      "identifier" : "generateThumbnails_ProbabilityAndStatistics"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateThumbnails_Calculus",
+      "name" : "Calculus",
+      "identifier" : "generateThumbnails_Calculus"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateThumbnails_DifferentialEquations",
+      "name" : "Differential equations",
+      "identifier" : "generateThumbnails_DifferentialEquations"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateThumbnails_LinearAlgebra",
+      "name" : "Linear algebra",
+      "identifier" : "generateThumbnails_LinearAlgebra"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateThumbnails_MathForFunAndGlory",
+      "name" : "Math for fun and glory",
+      "identifier" : "generateThumbnails_MathForFunAndGlory"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateThumbnails_Physics",
+      "name" : "Physics",
+      "identifier" : "generateThumbnails_Physics"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateThumbnails_Biology",
+      "name" : "Biology",
+      "identifier" : "generateThumbnails_Biology"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateThumbnails_HealthAndMedicine",
+      "name" : "Health and medicine",
+      "identifier" : "generateThumbnails_HealthAndMedicine"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateThumbnails_ElectricalEngineering",
+      "name" : "Electrical engineering",
+      "identifier" : "generateThumbnails_ElectricalEngineering"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateThumbnails_Microeconomics",
+      "name" : "Microeconomics",
+      "identifier" : "generateThumbnails_Microeconomics"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateThumbnails_Macroeconomics",
+      "name" : "Macroeconomics",
+      "identifier" : "generateThumbnails_Macroeconomics"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateThumbnails_FinanceAndCapitalMarkets",
+      "name" : "Finance and capital markets",
+      "identifier" : "generateThumbnails_FinanceAndCapitalMarkets"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateThumbnails_Entrepreneurship",
+      "name" : "Entrepreneurship",
+      "identifier" : "generateThumbnails_Entrepreneurship"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateThumbnails_ComputerProgramming",
+      "name" : "Computer programming",
+      "identifier" : "generateThumbnails_ComputerProgramming"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateThumbnails_ComputerScience",
+      "name" : "Computer science",
+      "identifier" : "generateThumbnails_ComputerScience"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateThumbnails_ArtHistory",
+      "name" : "Art history",
+      "identifier" : "generateThumbnails_ArtHistory"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateThumbnails_Grammar",
+      "name" : "Grammar",
+      "identifier" : "generateThumbnails_Grammar"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateThumbnails_Music",
+      "name" : "Music",
+      "identifier" : "generateThumbnails_Music"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateThumbnails_History",
+      "name" : "History",
+      "identifier" : "generateThumbnails_History"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateThumbnails_CAHSEE",
+      "name" : "CAHSEE",
+      "identifier" : "generateThumbnails_CAHSEE"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateThumbnails_IITJEE",
+      "name" : "IIT JEE",
+      "identifier" : "generateThumbnails_IITJEE"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateThumbnails_MCAT",
+      "name" : "MCAT",
+      "identifier" : "generateThumbnails_MCAT"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateThumbnails_NCLEXRN",
+      "name" : "NCLEX RN",
+      "identifier" : "generateThumbnails_NCLEXRN"
+    },
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateThumbnails_Fallback",
+      "name" : "Fallback",
+      "identifier" : "generateThumbnails_Fallback"
+    },
+
+    {
+      "script" : "generate.cocoascript",
+      "handler" : "generateTopicIcons",
+      "name" : "Topic Icons",
+      "identifier" : "generateTopicIcons"
+    },
   ],
   "menu": {
     "items": [
-      "selectParentArtboards",
-      "selectLayersConvertibleToOutlines"
+      {
+        "title": "Select",
+        "items": [
+          "selectParentArtboards",
+          "selectLayersConvertibleToOutlines"
+        ]
+      },
+      {
+        "title": "Generate",
+        "items": [
+          {
+            "title": "Titles",
+            "items": [
+              {
+                "title": "Math",
+                "items": [
+                  "generateTitles_KThrough8th",
+                  "generateTitles_EarlyMath",
+                  "generateTitles_Arithmetic",
+                  "generateTitles_Algebra",
+                  "generateTitles_Geometry",
+                  "generateTitles_Trigonometry",
+                  "generateTitles_ProbabilityAndStatistics",
+                  "generateTitles_Calculus",
+                  "generateTitles_DifferentialEquations",
+                  "generateTitles_LinearAlgebra",
+                  "generateTitles_MathForFunAndGlory",
+                ]
+              },
+              {
+                "title": "Science and engineering",
+                "items": [
+                  "generateTitles_Physics",
+                  "generateTitles_Chemistry",
+                  "generateTitles_Biology",
+                  "generateTitles_HealthAndMedicine",
+                  "generateTitles_ElectricalEngineering",
+                ]
+              },
+              {
+                "title": "Economics and finance",
+                "items": [
+                  "generateTitles_Microeconomics",
+                  "generateTitles_Macroeconomics",
+                  "generateTitles_FinanceAndCapitalMarkets",
+                  "generateTitles_Entrepreneurship",
+                ]
+              },
+              {
+                "title": "Computing",
+                "items": [
+                  "generateTitles_ComputerProgramming",
+                  "generateTitles_ComputerScience",
+                ]
+              },
+              {
+                "title": "Arts and humanities",
+                "items": [
+                  "generateTitles_ArtHistory",
+                  "generateTitles_Grammar",
+                  "generateTitles_Music",
+                  "generateTitles_History",
+                ]
+              },
+            ]
+          },
+          {
+            "title": "Thumbnails",
+            "items": [
+              {
+                "title": "Math",
+                "items": [
+                  "generateThumbnails_KThrough8th",
+                  "generateThumbnails_EarlyMath",
+                  "generateThumbnails_Arithmetic",
+                  "generateThumbnails_Algebra",
+                  "generateThumbnails_Geometry",
+                  "generateThumbnails_Trigonometry",
+                  "generateThumbnails_ProbabilityAndStatistics",
+                  "generateThumbnails_Calculus",
+                  "generateThumbnails_DifferentialEquations",
+                  "generateThumbnails_LinearAlgebra",
+                  "generateThumbnails_MathForFunAndGlory",
+                ]
+              },
+              {
+                "title": "Science and engineering",
+                "items": [
+                  "generateThumbnails_Physics",
+                  "generateThumbnails_Chemistry",
+                  "generateThumbnails_Biology",
+                  "generateThumbnails_HealthAndMedicine",
+                  "generateThumbnails_ElectricalEngineering",
+                ]
+              },
+              {
+                "title": "Economics and finance",
+                "items": [
+                  "generateThumbnails_Microeconomics",
+                  "generateThumbnails_Macroeconomics",
+                  "generateThumbnails_FinanceAndCapitalMarkets",
+                  "generateThumbnails_Entrepreneurship",
+                ]
+              },
+              {
+                "title": "Computing",
+                "items": [
+                  "generateThumbnails_ComputerProgramming",
+                  "generateThumbnails_ComputerScience",
+                ]
+              },
+              {
+                "title": "Arts and humanities",
+                "items": [
+                  "generateThumbnails_ArtHistory",
+                  "generateThumbnails_Grammar",
+                  "generateThumbnails_Music",
+                  "generateThumbnails_History",
+                ]
+              },
+              {
+                "title": "Test prep",
+                "items": [
+                  "generateThumbnails_CAHSEE",
+                  "generateThumbnails_IITJEE",
+                  "generateThumbnails_MCAT",
+                  "generateThumbnails_NCLEXRN",
+                ]
+              },
+              "generateThumbnails_Fallback"
+            ]
+          },
+          "generateTopicIcons"
+        ]
+      },
     ]
-  },
-  "identifier" : "org.khanacademy.sketchTools",
-  "version" : "1.0",
-  "description" : "A selection of tools we use at Khan Academy",
-  "authorEmail" : "nefaurk@khanacademy.org",
-  "name" : "Khan Academy"
+  }
 }

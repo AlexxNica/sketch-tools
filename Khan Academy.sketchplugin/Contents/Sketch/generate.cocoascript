@@ -1,0 +1,404 @@
+// This script was adapted from https://github.com/timuric/Content-generator-sketch-plugin
+
+
+// Helper functions:
+
+var tools = {
+	appVersion: "0.8",
+	versionComponents : function() {
+		var info = [[NSBundle mainBundle] infoDictionary];
+		var items = [[(info["CFBundleShortVersionString"]) componentsSeparatedByString:"."] mutableCopy];
+
+		while([items count] < 3)
+			[items addObject:"0"];
+
+		return items;
+	},
+	majorVersion : function() {
+		var items = tools.versionComponents();
+
+		return items[0];
+	},
+	minorVersion : function() {
+		var items = tools.versionComponents();
+
+		return items[1];
+	},
+	convertToString : function(objectString){
+		var i = 0;
+		normalString = "";
+		while(objectString[i] !== null) normalString += objectString[i];
+		return normalString;
+	},
+
+	saveFile : function(path,data){
+		var someContent = NSString.stringWithString_(data)
+		var path = path
+		someContent.dataUsingEncoding_(NSUTF8StringEncoding).writeToFile_atomically_(path, true)
+	},
+	pluginPath : function(){
+		if(tools.majorVersion() == 3){
+			var pluginFolder = scriptPath.match(/Plugins\/([\w -])*/)[0] + "/";
+			var sketchPluginsPath = scriptPath.replace(/Plugins([\w \/ -])*.sketchplugin$/, "");
+			return pluginFolder;
+		}
+	},
+	getJSONFromURL: function(url) {
+		var request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]],
+			response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil],
+			responseObj = [NSJSONSerialization JSONObjectWithData:response options:nil error:nil]
+		return responseObj
+	}
+};
+
+function alert(msg, title) {
+  title = title || "Whoops";
+  var app = [NSApplication sharedApplication];
+  [app displayDialog:msg withTitle:title];
+}
+
+function deleteLayer(layer){
+	var parent = [layer parentGroup];
+	if(parent) [parent removeLayer: layer];
+}
+
+function capitalize(str) {
+  return str.slice(0, 1).toUpperCase() + str.slice(1);
+}
+
+function shuffle(array) {
+	var currentIndex = array.count(), temporaryValue, randomIndex ;
+
+	// While there remain elements to shuffle...
+	while (0 !== currentIndex) {
+
+		// Pick a remaining element...
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex -= 1;
+
+		// And swap it with the current element.
+		temporaryValue = array[currentIndex];
+		array[currentIndex] = array[randomIndex];
+		array[randomIndex] = temporaryValue;
+	}
+
+	return array;
+}
+
+function replaceWithImages(images, context) {
+	selection = context.selection;
+	for(var i = 0; i < [selection count]; i++) {
+
+		var image = [[NSImage alloc] initByReferencingFile:images[i]];
+		var layer = selection[i];
+		if([layer class] == MSShapeGroup){
+			var fill = layer.style().fills().firstObject();
+			fill.setFillType(4);
+			layer.style().fills().firstObject().setPatternImage( image );
+			layer.style().fills().firstObject().setPatternFillType(1);
+		}
+	}
+
+	if([selection count] == 0) [doc showMessage:'Select at least one vector shape'];;
+
+}
+
+function getFilesAndReplace(directory, context) {
+	var fileTypes = [NSArray arrayWithObjects:@"png", @"PNG", @"jpg", @"JPG", @"jpeg", @"JPEG", @"gif", @"GIF", nil];
+	var fileManager = [NSFileManager defaultManager];
+	var files = [fileManager contentsOfDirectoryAtPath:directory error:nil];
+	var imageFileNames = [[files filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension IN %@", fileTypes]] mutableCopy]
+	var count = imageFileNames.count();
+
+	if (count == 0) {
+		var doc = context.document
+			[doc showMessage:"The directory does not contain any images"]
+	} else {
+
+		shuffle(imageFileNames);
+		for (var i = 0; i < context.selection.count(); i++) {
+			imageFileNames[i] = directory + "/" + imageFileNames[i];
+		}
+		replaceWithImages(imageFileNames, context);
+		if(context.selection.count() == 0) [doc showMessage:'Select at least one vector shape'];
+	}
+
+}
+
+var loadText = function(selection, data, label) {
+	label = label || "Text";
+	for (var i = 0, l = selection.count(); i < l; i++) {
+		var layer = selection[i];
+		var randomData = data[Math.floor(Math.random() * data.length)];
+		if (randomData) {
+			layer.setStringValue(randomData);
+			layer.setName(label);
+			layer.adjustFrameToFit();
+		}
+	}
+};
+
+var loadImages = function(scriptPath, selection, doc, dataPath, groupName, pictureName){
+	var groupName = groupName || "Image";
+	var pictureName = pictureName || "Bitmap";
+
+	function loadImages(imgAmount){
+		var fileManager = [NSFileManager defaultManager];
+		var imagesPath = scriptPath.replace(/\.sketchplugin.*$/, ".sketchplugin/Contents/Resources/" + dataPath);
+		var imagesFileNames = [fileManager contentsOfDirectoryAtPath:imagesPath error:nil];
+		var imageCount = [imagesFileNames count] - 1;
+		var selectedPaths = [];
+
+		if (imgAmount > imageCount) { //Load images in sequential order
+			while(imgAmount--) {
+				var index = Math.floor(Math.random() * imageCount);
+				do {
+					index = index >= imageCount ? 0 : index + 1;
+					var fileName = imagesFileNames[index];
+					var filePath = imagesPath + "/" + fileName;
+				} while(![fileManager fileExistsAtPath: filePath] || fileName == '.DS_Store')
+
+				selectedPaths.push(filePath);
+			}
+		}
+		else{	//Load unique images
+			while(imgAmount--) {
+				do {
+					var index = Math.floor(Math.random() * imageCount);
+					var fileName = imagesFileNames[index];
+					var filePath = imagesPath + "/" + fileName;
+					var match = selectedPaths.filter(function(selectedPath){return filePath == selectedPath;});
+				} while(fileName == '.DS_Store' || ![fileManager fileExistsAtPath: filePath] || match.length >= 1);
+				selectedPaths.push(filePath);
+			}
+		}
+
+		return selectedPaths.map(function(imagePath){
+			if ([fileManager fileExistsAtPath: imagePath]) {
+				var image = [[NSImage alloc] initWithContentsOfFile:imagePath];
+				return image;
+			}
+		})
+	}
+
+	function main(){
+		var allLayers = [[doc currentPage] layers],
+			imagesCollection = loadImages([selection count] + 1);
+
+		for(var i = 0; i < [selection count]; i++){
+			var layer = selection[i];
+            if([layer class] == MSShapeGroup){
+                var image = imagesCollection[i];
+                var fill = layer.style().fills().firstObject();
+                fill.setFillType(4);
+                if(tools.minorVersion() >= 1){
+					layer.style().fills().firstObject().setPatternImage( image );
+					layer.style().fills().firstObject().setPatternFillType(1);
+                }
+                else{
+                	layer.style().fills().firstObject().setPatternImage( image );
+                }
+                layer.style().fills().firstObject().setPatternFillType(1);
+            }
+		}
+
+		if([selection count] == 0) [doc showMessage:'Select at least one vector shape'];;
+	}
+	main();
+}
+
+var generateTitles = function(context, path) {
+	var plugin = context.plugin;
+	var selection = context.selection;
+	var url = plugin.urlForResourceNamed(path);
+	var strings = JSON.parse(NSString.stringWithContentsOfFile(url));
+	loadText(selection, strings);
+};
+
+var generateThumbnails = function(context, path) {
+	var plugin = context.plugin;
+	var scriptPath = context.scriptPath;
+	var selection = context.selection;
+	var doc = context.document;
+	loadImages(scriptPath, selection, doc, path);
+};
+
+var generateTopicIcons = function(context) {
+	var path = "Topic Icons";
+	var plugin = context.plugin;
+	var scriptPath = context.scriptPath;
+	var selection = context.selection;
+	var doc = context.document;
+	loadImages(scriptPath, selection, doc, path);
+};
+
+
+// Handlers:
+
+var generateTitles_KThrough8th = function(context) {
+	generateTitles(context, "Titles/k8th.json");
+};
+var generateTitles_EarlyMath = function(context) {
+	generateTitles(context, "Titles/early-math.json");
+};
+var generateTitles_Arithmetic = function(context) {
+	generateTitles(context, "Titles/arithmetic.json");
+};
+var generateTitles_Algebra = function(context) {
+	generateTitles(context, "Titles/algebra.json");
+};
+var generateTitles_Geometry = function(context) {
+	generateTitles(context, "Titles/geometry.json");
+};
+var generateTitles_Trigonometry = function(context) {
+	generateTitles(context, "Titles/trigonometry.json");
+};
+var generateTitles_ProbabilityAndStatistics = function(context) {
+	generateTitles(context, "Titles/probability.json");
+};
+var generateTitles_Calculus = function(context) {
+	generateTitles(context, "Titles/calculus.json");
+};
+var generateTitles_DifferentialEquations = function(context) {
+	generateTitles(context, "Titles/differential-equations.json");
+};
+var generateTitles_LinearAlgebra = function(context) {
+	generateTitles(context, "Titles/linear-algebra.json");
+};
+var generateTitles_MathForFunAndGlory = function(context) {
+	generateTitles(context, "Titles/math-for-fun-and-glory.json");
+};
+var generateTitles_Physics = function(context) {
+	generateTitles(context, "Titles/physics.json");
+};
+var generateTitles_Biology = function(context) {
+	generateTitles(context, "Titles/biology.json");
+};
+var generateTitles_HealthAndMedicine = function(context) {
+	generateTitles(context, "Titles/health-and-medicine.json");
+};
+var generateTitles_ElectricalEngineering = function(context) {
+	generateTitles(context, "Titles/electrical-engineering.json");
+};
+var generateTitles_Microeconomics = function(context) {
+	generateTitles(context, "Titles/microeconomics.json");
+};
+var generateTitles_Macroeconomics = function(context) {
+	generateTitles(context, "Titles/macroeconomics.json");
+};
+var generateTitles_FinanceAndCapitalMarkets = function(context) {
+	generateTitles(context, "Titles/core-finance.json");
+};
+var generateTitles_Entrepreneurship = function(context) {
+	generateTitles(context, "Titles/entrepreneurship2.json");
+};
+var generateTitles_ComputerProgramming = function(context) {
+	generateTitles(context, "Titles/computer-programming.json");
+};
+var generateTitles_ComputerScience = function(context) {
+	generateTitles(context, "Titles/computer-science.json");
+};
+var generateTitles_ArtHistory = function(context) {
+	generateTitles(context, "Titles/art-history.json");
+};
+var generateTitles_Grammar = function(context) {
+	generateTitles(context, "Titles/grammar.json");
+};
+var generateTitles_Music = function(context) {
+	generateTitles(context, "Titles/music.json");
+};
+var generateTitles_History = function(context) {
+	generateTitles(context, "Titles/history.json");
+};
+
+// Thumbnails
+var generateThumbnails_KThrough8th = function(context) {
+	generateThumbnails(context, "Thumbnails/K-8th");
+};
+var generateThumbnails_EarlyMath = function(context) {
+	generateThumbnails(context, "Thumbnails/Early Math");
+};
+var generateThumbnails_Arithmetic = function(context) {
+	generateThumbnails(context, "Thumbnails/Arithmetic");
+};
+var generateThumbnails_Algebra = function(context) {
+	generateThumbnails(context, "Thumbnails/Algebra");
+};
+var generateThumbnails_Geometry = function(context) {
+	generateThumbnails(context, "Thumbnails/Geometry");
+};
+var generateThumbnails_Trigonometry = function(context) {
+	generateThumbnails(context, "Thumbnails/Trigonometry");
+};
+var generateThumbnails_ProbabilityAndStatistics = function(context) {
+	generateThumbnails(context, "Thumbnails/Probability and Statistics");
+};
+var generateThumbnails_Calculus = function(context) {
+	generateThumbnails(context, "Thumbnails/Calculus");
+};
+var generateThumbnails_DifferentialEquations = function(context) {
+	generateThumbnails(context, "Thumbnails/Differential Equations");
+};
+var generateThumbnails_LinearAlgebra = function(context) {
+	generateThumbnails(context, "Thumbnails/Linear Algebra");
+};
+var generateThumbnails_MathForFunAndGlory = function(context) {
+	generateThumbnails(context, "Thumbnails/Math for Fun and Glory");
+};
+var generateThumbnails_Physics = function(context) {
+	generateThumbnails(context, "Thumbnails/Physics");
+};
+var generateThumbnails_Biology = function(context) {
+	generateThumbnails(context, "Thumbnails/Biology");
+};
+var generateThumbnails_HealthAndMedicine = function(context) {
+	generateThumbnails(context, "Thumbnails/Health and Medicine");
+};
+var generateThumbnails_ElectricalEngineering = function(context) {
+	generateThumbnails(context, "Thumbnails/Electrical Engineering");
+};
+var generateThumbnails_Microeconomics = function(context) {
+	generateThumbnails(context, "Thumbnails/Microeconomics");
+};
+var generateThumbnails_Macroeconomics = function(context) {
+	generateThumbnails(context, "Thumbnails/Macroeconomics");
+};
+var generateThumbnails_FinanceAndCapitalMarkets = function(context) {
+	generateThumbnails(context, "Thumbnails/Finance and Capital Markets");
+};
+var generateThumbnails_Entrepreneurship = function(context) {
+	generateThumbnails(context, "Thumbnails/Entrepreneurship");
+};
+var generateThumbnails_ComputerProgramming = function(context) {
+	generateThumbnails(context, "Thumbnails/Computer Programming");
+};
+var generateThumbnails_ComputerScience = function(context) {
+	generateThumbnails(context, "Thumbnails/Computer Science");
+};
+var generateThumbnails_ArtHistory = function(context) {
+	generateThumbnails(context, "Thumbnails/Art History");
+};
+var generateThumbnails_Grammar = function(context) {
+	generateThumbnails(context, "Thumbnails/Grammar");
+};
+var generateThumbnails_Music = function(context) {
+	generateThumbnails(context, "Thumbnails/Music");
+};
+var generateThumbnails_History = function(context) {
+	generateThumbnails(context, "Thumbnails/History");
+};
+var generateThumbnails_CAHSEE = function(context) {
+	generateThumbnails(context, "Thumbnails/CAHSEE");
+};
+var generateThumbnails_IITJEE = function(context) {
+	generateThumbnails(context, "Thumbnails/IIT JEE");
+};
+var generateThumbnails_MCAT = function(context) {
+	generateThumbnails(context, "Thumbnails/MCAT");
+};
+var generateThumbnails_NCLEXRN = function(context) {
+	generateThumbnails(context, "Thumbnails/NCLEX RN");
+};
+var generateThumbnails_Fallback = function(context) {
+	generateThumbnails(context, "Thumbnails/Fallback");
+};

@@ -1,5 +1,0 @@
-@import '../../js/utility.js'
-@import '../../js/loadText.js'
-@import '../../data/KA Titles/early-math.js'
-
-loadText(data);

@@ -1,4 +1,0 @@
-#import '../../js/utility.js'
-#import '../../js/loadImage.js'
-
-loadImages('data/KA Thumbnail/Science and Engineering/Electrical Engineering/', 'photo', 'photo')
