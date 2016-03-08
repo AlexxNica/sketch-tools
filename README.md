@@ -32,6 +32,10 @@ Select several rectangle layers and then use this action to fill the layers with
 
 ## Change Log
 
+#### v2.0: 2016-3-8
+
+- Adding content generation tools (content titles, content thumbnails, and topic icons)
+
 ####v1.0: 2016-3-3
 
 - Select Parent Artboards
