@@ -19,6 +19,12 @@
       "name" : "Select Layers Convertible to Outlines",
       "identifier" : "selectLayersConvertibleToOutlines"
     },
+    {
+      "script" : "select.cocoascript",
+      "handler" : "selectTextLayers",
+      "name" : "Select Text Layers",
+      "identifier" : "selectTextLayers"
+    },
 
     {
       "script" : "generate.cocoascript",
@@ -371,7 +377,8 @@
         "title": "Select",
         "items": [
           "selectParentArtboards",
-          "selectLayersConvertibleToOutlines"
+          "selectLayersConvertibleToOutlines",
+          "selectTextLayers"
         ]
       },
       {

@@ -12,6 +12,10 @@ Selects the parent artboards of the current selection when you press **⌃⌘A**
 
 Selects only layers that can be converted to outlines (text layers and shape layers with borders).
 
+###### Select Text Layers
+
+Selects only text layers.
+
 ####Generate
 
 ######Titles

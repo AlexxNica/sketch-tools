@@ -74,3 +74,42 @@ var selectLayersConvertibleToOutlines = function(context) {
     layer.select_byExpandingSelection(true, true);
   }
 }
+
+var selectTextLayers = function(context) {
+  var selection = context.selection;
+  var doc = context.document;
+  var page = doc.currentPage();
+
+  if (selection.count() == 0) {
+    // If we started with an empty selection, search through all the layers on this page
+    selection = page.layers().array();
+  }
+
+  var layersToSelect = [];
+  var selectionLoop = selection.objectEnumerator();
+  var object;
+  while (object = selectionLoop.nextObject()) {
+    // Remove this object from the selection if it isn't text
+    if (!object.isKindOfClass(MSTextLayer)) {
+      object.select_byExpandingSelection(false, true);
+    }
+
+    // Search through this object's children for text layers
+    var scope = object.children();
+    var predicate = NSPredicate.predicateWithFormat("class == %@", MSTextLayer);
+    var results = scope.filteredArrayUsingPredicate(predicate);
+
+    // Record the resulting layers
+    var loop = results.objectEnumerator();
+    var layer;
+    while (layer = loop.nextObject()) {
+      layersToSelect.push(layer);
+    }
+  }
+
+  // Add the text layers to the selection
+  for (var i = 0; i < layersToSelect.length; i++) {
+    var layer = layersToSelect[i];
+    layer.select_byExpandingSelection(true, true);
+  }
+}
