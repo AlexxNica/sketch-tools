@@ -27,6 +27,13 @@
     },
 
     {
+      "script" : "select.cocoascript",
+      "handler" : "convertContainedArtboardsToMaskedGroups",
+      "name" : "Convert Contained Artboards to Masked Groups",
+      "identifier" : "convertContainedArtboardsToMaskedGroups"
+    },
+
+    {
       "script" : "generate.cocoascript",
       "handler" : "generateTitles_KThrough8th",
       "name" : "K–8th",
@@ -379,6 +386,12 @@
           "selectParentArtboards",
           "selectLayersConvertibleToOutlines",
           "selectTextLayers"
+        ]
+      },
+      {
+        "title": "Convert",
+        "items": [
+          "convertContainedArtboardsToMaskedGroups"
         ]
       },
       {

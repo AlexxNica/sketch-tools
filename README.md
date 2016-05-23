@@ -2,7 +2,7 @@ This Sketch plugin is a collection of tools we commonly use at Khan Academy.
 
 ##Tools
 
-####Generate
+####Select
 
 ######Select Parent Artboards
 
@@ -15,6 +15,12 @@ Selects only layers that can be converted to outlines (text layers and shape lay
 ###### Select Text Layers
 
 Selects only text layers.
+
+#### Convert
+
+###### Convert Contained Artboards to Masked Groups
+
+Convert artboards that intersect with the selected artboard to masked groups. This is especially helpful before uploading a spec to Zeplin.
 
 ####Generate
 
@@ -36,18 +42,22 @@ Select several rectangle layers and then use this action to fill the layers with
 
 ## Change Log
 
+#### v2.2: 2016-5-23
+
+- Added Convert Contained Artboards to Masked Groups command
+
 #### v2.1: 2016-5-2
 
 - Added Select Text Layers command
 
 #### v2.0: 2016-3-8
 
-- Adding content generation tools (content titles, content thumbnails, and topic icons)
+- Added content generation tools (content titles, content thumbnails, and topic icons)
 
 ####v1.0: 2016-3-3
 
-- Select Parent Artboards
-- Select Layers Convertible to Outlines
+- Added Select Parent Artboards
+- Added Select Layers Convertible to Outlines
 
 ## License
 
