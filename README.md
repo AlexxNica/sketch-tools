@@ -16,11 +16,11 @@ Selects only layers that can be converted to outlines (text layers and shape lay
 
 Selects only text layers.
 
-#### Convert
+#### Export
 
-###### Convert Contained Artboards to Masked Groups
+###### To Zeplin
 
-Convert artboards that intersect with the selected artboard to masked groups. This is especially helpful before uploading a spec to Zeplin.
+Exports the selected artboards to Zeplin when you press **⌘⌥E**. This is an improvement over Zeplin's official Sketch plugin in that it redlines layers in subartboards of the artboard you're exporting.
 
 ####Generate
 
@@ -41,6 +41,11 @@ Select several rectangle layers and then use this action to fill the layers with
 [Download](https://github.com/Khan/sketch-tools/archive/master.zip) and extract the contents of this repository. Then double-click the `Khan Academy.sketchplugin` bundle to install the plugin.
 
 ## Change Log
+
+#### v2.3: 2016-6-17
+
+- Removed Convert Contained Artboards to Masked Groups command
+- Added Export to Zeplin command
 
 #### v2.2: 2016-5-23
 

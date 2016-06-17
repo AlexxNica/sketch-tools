@@ -10,87 +10,6 @@ var artboardForObject = function(object) {
   }
 };
 
-var artboardsContainedByArtboard = function(artboard, allArtboards) {
-  var frame = artboard.frame();
-  var containedArtboards = [];
-  var artboardLoop = allArtboards.objectEnumerator();
-  var object;
-  while (a = artboardLoop.nextObject()) {
-    if (a != artboard) {
-      var f = a.frame();
-      if (doFramesIntersect(f, frame)) {
-        containedArtboards.push(a);
-      }
-    }
-  }
-  return containedArtboards;
-};
-
-var doFramesIntersect = function(frame1, frame2) {
-  var f1 = {
-    x: frame1.x(),
-    y: frame1.y(),
-    width: frame1.width(),
-    height: frame1.height()
-  };
-  var f2 = {
-    x: frame2.x(),
-    y: frame2.y(),
-    width: frame2.width(),
-    height: frame2.height()
-  };
-  var xIntersection = false;
-  var yIntersection = false;
-  if (f1.x + f1.width < f2.x) {
-    // f1 is to the left of f2
-    return false;
-  } else if (f1.x > f2.x + f2.width) {
-    // f1 is to the right of f2
-    return false;
-  } else {
-    // f1 and f2 intersect in the x dimension
-    xIntersection = true;
-  }
-  if (f1.y + f1.height < f2.y) {
-    // f1 is above f2
-    return false;
-  } else if (f1.y > f2.y + f2.height) {
-    // f1 is below f2
-    return false;
-  } else {
-    // f1 and f2 intersect in the y dimension
-    yIntersection = true;
-  }
-  return xIntersection && yIntersection;
-};
-
-var createMaskedGroupFromArtboard = function(artboard) {
-  var frame = artboard.frame();
-
-  var rectangle = MSRectangleShape.new();
-  var rectangleFrame = rectangle.frame();
-  rectangleFrame.x = 0;
-  rectangleFrame.y = 0;
-  rectangleFrame.width = frame.width();
-  rectangleFrame.height = frame.height();
-
-  var shape = MSShapeGroup.shapeWithPath(rectangle);
-  if (artboard.hasBackgroundColor()) {
-    var bgColor = artboard.backgroundColorGeneric();
-    var fill = shape.style().addStylePartOfType(0);
-    fill.color = bgColor;
-  }
-  shape.setName("Mask");
-
-  artboard.insertLayers_atIndex([shape], 0);
-
-  var layersToMask = artboard.layers().array();
-  var maskedGroup = MSMaskWithShape.createMaskWithShapeFromMultipleLayers(MSLayerArray.arrayWithLayers(layersToMask));
-  maskedGroup.setName(artboard.name());
-
-  return maskedGroup;
-};
-
 
 // Handlers:
 
@@ -192,39 +111,5 @@ var selectTextLayers = function(context) {
   for (var i = 0; i < layersToSelect.length; i++) {
     var layer = layersToSelect[i];
     layer.select_byExpandingSelection(true, true);
-  }
-};
-
-var convertContainedArtboardsToMaskedGroups = function(context) {
-  var selection = context.selection;
-  var doc = context.document;
-  var page = doc.currentPage();
-  var artboards = page.artboards();
-
-  var targetArtboards = [];
-  var selectionLoop = selection.objectEnumerator();
-  var object;
-  while (object = selectionLoop.nextObject()) {
-    if (object.isKindOfClass(MSArtboardGroup)) {
-      targetArtboards.push(object);
-    }
-  }
-
-  for (var i = 0; i < targetArtboards.length; i++) {
-    var artboard = targetArtboards[i];
-    var containedArtboards = artboardsContainedByArtboard(artboard, artboards);
-    for (var j = 0; j < containedArtboards.length; j++) {
-      var a = containedArtboards[j];
-      var newX = a.frame().x() - artboard.frame().x();
-      var newY = a.frame().y() - artboard.frame().y();
-
-      var maskedGroup = createMaskedGroupFromArtboard(a);
-      artboard.addLayers([maskedGroup]);
-      page.removeLayer(a);
-
-      var newFrame = maskedGroup.frame()
-      newFrame.setX(newX);
-      newFrame.setY(newY);
-    }
   }
 };

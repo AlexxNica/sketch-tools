@@ -27,10 +27,11 @@
     },
 
     {
-      "script" : "select.cocoascript",
-      "handler" : "convertContainedArtboardsToMaskedGroups",
-      "name" : "Convert Contained Artboards to Masked Groups",
-      "identifier" : "convertContainedArtboardsToMaskedGroups"
+      "script" : "export.cocoascript",
+      "handler" : "exportToZeplin",
+      "shortcut" : "cmd option e",
+      "name" : "To Zeplin…",
+      "identifier" : "exportToZeplin"
     },
 
     {
@@ -389,9 +390,9 @@
         ]
       },
       {
-        "title": "Convert",
+        "title": "Export",
         "items": [
-          "convertContainedArtboardsToMaskedGroups"
+          "exportToZeplin"
         ]
       },
       {
