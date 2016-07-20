@@ -131,8 +131,8 @@ var createMaskedGroupFromArtboard = function(artboard) {
   shape.setName("Mask");
 
   artboard.insertLayers_atIndex([shape], 0);
-
-  var layersToMask = artboard.layers().array();
+  
+  var layersToMask = artboard.layers();
   var maskedGroup = MSMaskWithShape.createMaskWithShapeFromMultipleLayers(MSLayerArray.arrayWithLayers(layersToMask));
   maskedGroup.setName(artboard.name());
 
