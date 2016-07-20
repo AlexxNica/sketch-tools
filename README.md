@@ -42,6 +42,10 @@ Select several rectangle layers and then use this action to fill the layers with
 
 ## Change Log
 
+#### v2.3.1: 2016-7-20
+
+- Bug fixes for Sketch 3.9 compatibility
+
 #### v2.3: 2016-6-17
 
 - Removed Convert Contained Artboards to Masked Groups command
