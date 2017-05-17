@@ -1,14 +1,14 @@
 This Sketch plugin is a collection of tools we commonly use at Khan Academy.
 
-##Tools
+## Tools
 
-####Select
+#### Select
 
-######Select Parent Artboards
+###### Select Parent Artboards
 
 Selects the parent artboards of the current selection when you press **⌃⌘A**.
 
-######Select Layers Convertible to Outlines
+###### Select Layers Convertible to Outlines
 
 Selects only layers that can be converted to outlines (text layers and shape layers with borders).
 
@@ -16,17 +16,17 @@ Selects only layers that can be converted to outlines (text layers and shape lay
 
 Selects only text layers.
 
-####Generate
+#### Generate
 
-######Titles
+###### Titles
 
 Select several text layers and then use the actions in this menu to fill the layers with content titles.
 
-######Thumbnails
+###### Thumbnails
 
 Select several rectangle layers and then use the actions in this menu to fill the layers with content thumbnails.
 
-######Topic Icons
+###### Topic Icons
 
 Select several rectangle layers and then use this action to fill the layers with topic icons.
 
