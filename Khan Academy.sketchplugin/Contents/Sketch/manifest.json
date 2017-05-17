@@ -27,14 +27,6 @@
     },
 
     {
-      "script" : "export.cocoascript",
-      "handler" : "exportToZeplin",
-      "shortcut" : "cmd option e",
-      "name" : "To Zeplin…",
-      "identifier" : "exportToZeplin"
-    },
-
-    {
       "script" : "generate.cocoascript",
       "handler" : "generateTitles_KThrough8th",
       "name" : "K–8th",
@@ -387,12 +379,6 @@
           "selectParentArtboards",
           "selectLayersConvertibleToOutlines",
           "selectTextLayers"
-        ]
-      },
-      {
-        "title": "Export",
-        "items": [
-          "exportToZeplin"
         ]
       },
       {

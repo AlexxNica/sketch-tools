@@ -16,12 +16,6 @@ Selects only layers that can be converted to outlines (text layers and shape lay
 
 Selects only text layers.
 
-#### Export
-
-###### To Zeplin
-
-Exports the selected artboards to Zeplin when you press **⌘⌥E**. This is an improvement over Zeplin's official Sketch plugin in that it redlines layers in subartboards of the artboard you're exporting.
-
 ####Generate
 
 ######Titles
@@ -41,6 +35,10 @@ Select several rectangle layers and then use this action to fill the layers with
 [Download](https://github.com/Khan/sketch-tools/archive/master.zip) and extract the contents of this repository. Then double-click the `Khan Academy.sketchplugin` bundle to install the plugin.
 
 ## Change Log
+
+#### v2.3.2: 2017-5-17
+
+- Removed Export to Zeplin command (use https://github.com/nefaurk/nestlin instead)
 
 #### v2.3.1: 2016-7-20
 
